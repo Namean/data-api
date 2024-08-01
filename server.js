@@ -6,6 +6,7 @@ import path from "express";
 app.use(express.static("public"));
 import * as _child from 'child_process';
 const child = _child.spawn('get-ip');
+import indexRouter from './src/routes/index.js';
 
 app.use(express.static("public"));
 // app.use(express.static("img"));
@@ -23,12 +24,15 @@ app.use(function (req, res, next) {
 
 const __dirname = "/Users/allspark/Documents/src/data-api/";
 
+app.use('/', indexRouter);
+
+/*
 app.get("/", (req, res) => {
   res.json({
     msg: "data-api is functioning correctly!",
   });
 });
-
+*/
 app.get("/html", cors(), (req, res) => {
   res.sendFile(__dirname + "./html/example.json");
 });
