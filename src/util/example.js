@@ -3,6 +3,8 @@ import fs from "node:fs/promises";
 import { micromark } from "micromark";
 import { gfm, gfmHtml } from "micromark-extension-gfm";
 
+const files_to_be_read = [];
+
 const output = micromark(await fs.readFile("example.md"), {
   allowDangerousHtml: true,
   extensions: [gfm()],

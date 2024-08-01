@@ -1,18 +1,18 @@
 import express from "express";
 import cors from "cors";
+import * as _child from 'child_process';
+import indexRouter from './routes/index.js';
+import AuthRouter from './routes/Auth.router.js';
+import path from 'path';
+
 const app = express();
 const PORT = 8081;
-//import path from "express";
-app.use(express.static("public"));
-import * as _child from 'child_process';
+
 const child = _child.spawn('get-ip');
-import indexRouter from './src/routes/index.js';
-import path from 'path';
 const __dirname = "/Users/allspark/Documents/src/data-api/public";
-//app.use(express.static("public"));
+
+app.use(express.static("public"));
 app.use(express.static(path.join(__dirname, "public")));
-// app.use(express.static("img"));
-// app.use(express.static("files"));
 app.use(cors());
 
 app.use(function (req, res, next) {
@@ -27,14 +27,14 @@ app.use(function (req, res, next) {
 
 
 app.use('/', indexRouter);
+app.use('auth', AuthRouter);
 
-/*
-app.get("/", (req, res) => {
+app.get("/status", (req, res) => {
   res.json({
     msg: "data-api is functioning correctly!",
   });
 });
-*/
+
 app.get("/html", cors(), (req, res) => {
   //res.sendFile(__dirname + "/html/example.html");
   /*
