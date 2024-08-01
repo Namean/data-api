@@ -1,13 +1,13 @@
 import sqlite3 from "sqlite3";
 
-let db = new sqlite3.Database(':memory:', (err) => {
+const db_in_memory = new sqlite3.Database(':memory:', (err) => {
   if (err) {
     return console.error(err.message);
   }
-  console.log('Connected to the in-mmemory SQlite database');
+  console.log('Connected to the in-memory SQlite database');
 });
 
-db.close((err) => {
+db.close((err: Error): void => {
   if (err) {
     return console.error(err.message);
   }
@@ -15,9 +15,9 @@ db.close((err) => {
 })
 
 const config = {
-  type: 'config'
-  db_name: '',
-  mode: '', // sqlite3.OPEN_READONLY, .OPEN_READWRITE, OPEN_CREATE
+  type: 'config',
+  db_name: 'chinook',
+  mode: '' // sqlite3.OPEN_READONLY, .OPEN_READWRITE, OPEN_CREATE
 }
 
 
@@ -31,7 +31,7 @@ const config = {
 //   })
 // }
 
-let db = new sqlite3.Database('./db/chinook.db', sqlite3.OPEN_READWRITE, (err) => {
+let db = new sqlite3.Database('./db/chinook.db', sqlite3.OPEN_READWRITE, (err: Error): void => {
   if (err) {
     console.error(err.message);
   }
