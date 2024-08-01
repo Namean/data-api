@@ -2,13 +2,15 @@ import express from "express";
 import cors from "cors";
 const app = express();
 const PORT = 8081;
-import path from "express";
+//import path from "express";
 app.use(express.static("public"));
 import * as _child from 'child_process';
 const child = _child.spawn('get-ip');
 import indexRouter from './src/routes/index.js';
-
-app.use(express.static("public"));
+import path from 'path';
+const __dirname = "/Users/allspark/Documents/src/data-api/public";
+//app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 // app.use(express.static("img"));
 // app.use(express.static("files"));
 app.use(cors());
@@ -22,7 +24,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-const __dirname = "/Users/allspark/Documents/src/data-api/";
+
 
 app.use('/', indexRouter);
 
@@ -34,7 +36,22 @@ app.get("/", (req, res) => {
 });
 */
 app.get("/html", cors(), (req, res) => {
-  res.sendFile(__dirname + "./html/example.json");
+  //res.sendFile(__dirname + "/html/example.html");
+  /*
+  const options = { root: path.join(__dirname) }
+
+  const file_name = 'example.html';
+
+  res.sendFile(file_name, options, function (err) {
+    if (err) {
+      console.error('Error sending file:', err);
+    } else {
+      console.log('Sent', file_name);
+    }
+  })
+  */
+  res.sendFile("/home/desmond/Documents/src/repos/data-api/public/html/example.html")
+
 });
 
 app.get("/json", cors(), (req, res) => {
